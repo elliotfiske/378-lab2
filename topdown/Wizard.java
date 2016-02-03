@@ -17,7 +17,30 @@ public class Wizard extends Actor
     {
         // Add your action code here.
         checkKeyMovement();
+        checkRoomChange();
     }    
+    
+    public void checkRoomChange() {
+        int xPos = 0; 
+        if (getX() == 0) 
+            xPos--;
+        if (getX() == getWorld().getWidth() - 1) 
+            xPos++;
+        if (MyWorld.roomNum + xPos < 0 ||
+            MyWorld.roomNum + xPos > MyWorld.max - 1)
+            xPos = 0;
+        if (xPos == 0)
+            return;
+        
+        MyWorld.roomNum = (MyWorld.roomNum + MyWorld.max + xPos) % MyWorld.max;
+        
+        MyWorld world = new MyWorld(true);
+        
+        world.addObject(this, (getX() + xPos + 500) % 500, 
+            (getY() + 500) % 500);
+            
+        Greenfoot.setWorld(world);
+    }
     
     public void checkKeyMovement() {
         if (Greenfoot.isKeyDown("w")) {

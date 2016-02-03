@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 /**
  * Write a description of class Wizard here.
@@ -18,6 +19,7 @@ public class Wizard extends Actor
         // Add your action code here.
         checkKeyMovement();
         checkRoomChange();
+        shoot();
     }    
     
     public void checkRoomChange() {
@@ -71,5 +73,18 @@ public class Wizard extends Actor
     
     public void moveDown() {
         setLocation(getX(), getY() + speed);
+    }
+    
+    public void shoot() {
+        MouseInfo mouse = Greenfoot.getMouseInfo();
+        if(mouse != null) {
+            //ray trace
+            int x = (int)(180*Math.atan2(mouse.getY()-getY(),mouse.getX()-getX())/Math.PI);
+            
+            //based on left mouse click && turns off auto shooting
+            if(mouse.getButton() == 1 && Greenfoot.mouseClicked(null)) {        
+                getWorld().addObject(new Projectile(x), getX(), getY());
+            }
+        }
     }
 }

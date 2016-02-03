@@ -14,41 +14,15 @@ public class Projectile extends Actor
     private int mx;
     private int my;
     
-    private int dist = 400; //distance aka life = dist/speed
+    private int dist = 300; //distance aka life = dist/speed
     private int speed = 3;
-    private int delay = 50; //time between each fire
-    private int timer = 0;
     
-    public Projectile()
+    public Projectile(int x)
     {
-        direction();
+        setRotation(x);
     }
     
-    private void direction()
-    {
-        MouseInfo mouse = Greenfoot.getMouseInfo();
-        
-        if(mouse!=null){
-           mx = mouse.getX();
-           my = mouse.getY();
-           //possible implementaiton after human
-           //setRotation((int)(180*Math.atan2(mouse.getY()-getY(),mouse.getX()-getX())/Math.PI));
-        }
-        
-    }
-    
-    private void fire()
-    {
-        if("space".equals(Greenfoot.getKey()))//(Greenfoot.isKeyDown("space") && timer == delay)
-        {
-            getWorld().addObject(new Projectile(), 1, 1);
-            timer = 0;
-        }
-        //else
-        //     timer++;
-    }
-    
-    private void move()
+    private void shift()
     {
         move(speed);
         dist -= speed;
@@ -58,19 +32,15 @@ public class Projectile extends Actor
     {
         if(dist <= 0 || this.isAtEdge())
         { 
-            World world;
-            world = getWorld();
-            world.removeObject(this);
+            getWorld().removeObject(this);
         }
     }
     
     public void act() 
     {
         super.act();
-        fire();
         
-        turnTowards(mx, my);
-        move();
+        shift();
         
         remove();
     }    

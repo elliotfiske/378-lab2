@@ -9,13 +9,20 @@ import java.util.*;
  */
 public class Wizard extends Actor
 {
+    public static final int DIR_DOWN  = 0;
+    public static final int DIR_RIGHT = 1;
+    public static final int DIR_UP    = 2;
+    public static final int DIR_LEFT  = 3;
+    
     public int speed = 3;
     /* Directions:
      *     2
      *   3   1
      *     0
      */ 
-    public int direction = 0;
+    public int direction = DIR_DOWN;
+    
+    public ArrayList<Integer> inputs = new ArrayList<Integer>();
     
     // List of all the images in the wizard's animation
     private List<GreenfootImage> wizardFrames;
@@ -63,38 +70,87 @@ public class Wizard extends Actor
     }
     
     public void checkKeyMovement() {
-        if (Greenfoot.isKeyDown("w")) {
-            moveUp();
+        String lastKey = Greenfoot.getKey();
+        
+        if (lastKey != null) {
+            if (lastKey.equals("s")) {
+                addDirection(DIR_DOWN);
+            }
+            else if (lastKey.equals("d")) {
+                addDirection(DIR_RIGHT);
+            }
+            else if (lastKey.equals("w")) {
+                addDirection(DIR_UP);
+            }
+            else if (lastKey.equals("a")) {
+                addDirection(DIR_LEFT);
+            }
         }
-        else if (Greenfoot.isKeyDown("s")) {
-            moveDown();
+        
+        if (!Greenfoot.isKeyDown("s")) {
+            endDirection(DIR_DOWN);
         }
-        else if (Greenfoot.isKeyDown("a")) {
-            moveLeft();
+        else if (!Greenfoot.isKeyDown("d")) {
+            endDirection(DIR_RIGHT);
         }
-        else if (Greenfoot.isKeyDown("d")) {
-            moveRight();
+        else if (!Greenfoot.isKeyDown("w")) {
+            endDirection(DIR_UP);
+        }
+        else if (!Greenfoot.isKeyDown("a")) {
+            endDirection(DIR_LEFT);
+        }
+        
+        // Get current direction
+        int dx = getHorizontalMovement();
+        int dy = getVerticalMovement();
+        
+        setLocation(getX() + dx, getY() + dy);
+    }
+    
+    void endDirection(int dir) {
+        int ndx = inputs.indexOf(dir);
+        if (ndx != -1) {
+            inputs.remove(ndx);
         }
     }
     
-    public void moveLeft() {
-        setLocation(getX() - speed, getY());
-        changeDirection(3);
+    void addDirection(int dir) {
+        endDirection(dir);
+        inputs.add(0, dir);
     }
     
-    public void moveRight() {
-        setLocation(getX() + speed, getY());
-        changeDirection(1);
+    int getHorizontalMovement() {
+        int horizontalMovement = 0;
+        for (Integer i : inputs) {
+            if (i == DIR_RIGHT) {
+                horizontalMovement = 1; 
+                break;
+            }
+            
+            if (i == DIR_LEFT) {
+                horizontalMovement = -1;
+                break;
+            }
+        }
+        
+        return horizontalMovement;
     }
     
-    public void moveUp() {
-        setLocation(getX(), getY() - speed);
-        changeDirection(2);
-    }
-    
-    public void moveDown() {
-        setLocation(getX(), getY() + speed);
-        changeDirection(0);
+    int getVerticalMovement() {
+        int verticalMovement = 0;
+        for (Integer i : inputs) {
+            if (i == DIR_UP) {
+                verticalMovement = -1; 
+                break;
+            }
+            
+            if (i == DIR_DOWN) {
+                verticalMovement = 1;
+                break;
+            }
+        }
+        
+        return verticalMovement;
     }
     
     public void changeDirection(int newDirection) {

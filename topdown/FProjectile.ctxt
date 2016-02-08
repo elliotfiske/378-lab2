@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=FProjectile
+comment0.text=\n\ Write\ a\ description\ of\ class\ FProjectile\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=x
+comment1.target=FProjectile(int)
+comment2.params=
+comment2.target=void\ shift()
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ end()
+numComments=5

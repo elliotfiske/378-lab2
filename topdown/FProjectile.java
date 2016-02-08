@@ -1,15 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Projectile here.
+ * Write a description of class FProjectile here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-
-
-
-public class Projectile extends Actor
+public class FProjectile extends Actor
 {
     private int mx;
     private int my;
@@ -17,9 +14,10 @@ public class Projectile extends Actor
     private int dist = 300; //distance aka life = dist/speed
     private int speed = 3;
     
-    public Projectile(int x)
+    public FProjectile(int x)
     {
         setRotation(x);
+        getImage().scale(96, 96);
     }
     
     private void shift()
@@ -38,18 +36,19 @@ public class Projectile extends Actor
     
     public void end()
     {
-        Actor e = getOneIntersectingObject(Boss.class);  
+        Actor e = getOneIntersectingObject(Projectile.class);  
+        Actor wizard = getOneIntersectingObject(Wizard.class);
         
         if(e != null)
         {
-            //getWorld().removeObject(e);
-            // getWorld().removeObject(this);
-            ((MyWorld) getWorld()).boss.hitCounter++;
-            if (((MyWorld) getWorld()).boss.hitCounter > 60) {
-                getWorld().removeObject(((MyWorld) getWorld()).boss);
-            }
+            getWorld().removeObject(e);
+            getWorld().removeObject(this);
         }
-        else if(dist <= 0 || this.isAtEdge())
+        else if (wizard != null) {
+            
+            getWorld().removeObject(this);
+        }
+        else if(this.isAtEdge())
         { 
             getWorld().removeObject(this);
         }

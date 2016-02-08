@@ -36,7 +36,7 @@ public class Boss extends Actor
             getImage().scale(128, 128);    
         }
         
-        if (counter < 50) {
+        if (counter < 30) {
             return;
         }
         else {
@@ -46,6 +46,5 @@ public class Boss extends Actor
             getWorld().addObject(new FProjectile(x), getX(), getY()); 
             counter = 0;
         }
-        
     }
 }

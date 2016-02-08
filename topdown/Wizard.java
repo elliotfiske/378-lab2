@@ -1,6 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
-
+ 
 /**
  * Write a description of class Wizard here.
  * 
@@ -10,19 +10,32 @@ import java.util.*;
 public class Wizard extends Actor
 {
     public int speed = 3;
-    public static int fireCounter = 0;;
-    public static int hitCounter;
+    /* Directions:
+     *     2
+     *   3   1
+     *     0
+     */ 
+    public int direction = 0;
+    
+    // List of all the images in the wizard's animation
+    private List<GreenfootImage> wizardFrames;
+    // How far into a walk cycle are we? For instance, if we JUST
+    //  changed direction, this will be 0.
+    private int currFrameOffset = 0;
+    
+    // Tracks how far the wizard moves before we show the next frame
+    private final float MOVEMENT_THRESHHOLD = 24;
+    private float currMovement = MOVEMENT_THRESHHOLD;
+    
     /**
      * Act - do whatever the Wizard wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public Wizard() {
-        hitCounter = 0;
-    }
     public void act() 
     {
         // Add your action code here.
         checkKeyMovement();
+        doAnimation();
         checkRoomChange();
         shoot();
     }    
@@ -66,34 +79,78 @@ public class Wizard extends Actor
     
     public void moveLeft() {
         setLocation(getX() - speed, getY());
+        changeDirection(3);
     }
     
     public void moveRight() {
         setLocation(getX() + speed, getY());
+        changeDirection(1);
     }
     
     public void moveUp() {
         setLocation(getX(), getY() - speed);
+        changeDirection(2);
     }
     
     public void moveDown() {
         setLocation(getX(), getY() + speed);
+        changeDirection(0);
+    }
+    
+    public void changeDirection(int newDirection) {
+        if (direction != newDirection) {
+            currFrameOffset = 0;
+            currMovement = 0;
+            direction = newDirection;            
+        }
     }
     
     public void shoot() {
         MouseInfo mouse = Greenfoot.getMouseInfo();
-        fireCounter++;
         if(mouse != null) {
             //ray trace
             int x = (int)(180*Math.atan2(mouse.getY()-getY(),mouse.getX()-getX())/Math.PI);
+
             //based on left mouse click && turns off auto shooting
-            if(mouse.getButton() == 1 && Greenfoot.mouseClicked(null)) { 
-                if (fireCounter > 20) {
-                    getWorld().addObject(new Projectile(x), getX(), getY());
-                    fireCounter = 0;
-                }
+            if(mouse.getButton() == 1 && Greenfoot.mouseClicked(null)) {  
+                getWorld().addObject(new Projectile(x), getX(), getY());
             }
         }
+    }
+
+    private int prevX = 0;
+    private int prevY = 0;
+    
+    public void doAnimation() {
+        int dx = getX() - prevX;
+        int dy = getY() - prevY;
         
+        prevX = getX();
+        prevY = getY();
+        
+        float distanceTraveled = (float) Math.sqrt(dx*dx + dy*dy);
+        currMovement -= distanceTraveled;
+        
+        System.out.println("Movement: " + distanceTraveled);
+        
+        if (currMovement <= 0) {
+            // Time for a new frame
+            currMovement = MOVEMENT_THRESHHOLD;
+            currFrameOffset++;
+            currFrameOffset %= 4;
+            
+            int frame = direction * 4 + currFrameOffset;
+            
+            setImage(wizardFrames.get(frame));
+        }
+    }
+    
+    public Wizard() {
+        GifImage wizardImage = new GifImage("wiz-color.gif");
+        wizardFrames = wizardImage.getImages();
+        
+        for (GreenfootImage frame : wizardFrames) {
+            frame.scale(72, 72);
+        }
     }
 }

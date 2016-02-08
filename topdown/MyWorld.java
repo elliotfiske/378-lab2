@@ -35,7 +35,7 @@ public class MyWorld extends World
             prepare();
         }
         boss = new Boss();
-        addObject(boss, 400, 100);
+        addObject(boss, 100, 100);
         setBackground(rooms[roomNum]);
     }
     

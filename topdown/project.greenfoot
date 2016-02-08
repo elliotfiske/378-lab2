@@ -1,9 +1,5 @@
 #Greenfoot properties
-<<<<<<< HEAD
-#Wed Feb 03 14:56:10 PST 2016
-=======
-#Wed Feb 03 14:38:18 PST 2016
->>>>>>> origin/master
+#Sun Feb 07 20:28:22 PST 2016
 readme.name=@README
 target2.name=MyWorld
 <<<<<<<=Updated upstream
@@ -31,16 +27,16 @@ target1.showInterface=false
 target1.name=Wizard
 editor.swing.0.width=0
 editor.fx.0.width=700
-readme.y=10
 target2.typeParameters=
+readme.y=10
 readme.x=10
-target1.typeParameters=
 mainWindow.width=1280
+target1.typeParameters=
 dependency2.from=Wizard
 target2.width=80
-target1.width=80
-mainWindow.y=23
 mainWindow.height=773
+mainWindow.y=23
+target1.width=80
 mainWindow.x=0
 editor.fx.0.y=0
 editor.fx.0.x=0
@@ -52,7 +48,7 @@ dependency1.type=UsesDependency
 version=2.8.0
 package.numDependencies=2
 project.charset=UTF-8
-class.Projectile.image=fireball.png
 readme.height=58
+class.Projectile.image=fireball.png
 dependency2.to=MyWorld
 =\=\=\=\=\=\=

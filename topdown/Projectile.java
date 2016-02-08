@@ -27,22 +27,28 @@ public class Projectile extends Actor
         move(speed);
         dist -= speed;
     }
-    
-    private void remove()
-    {
-        if(dist <= 0 || this.isAtEdge())
-        { 
-            getWorld().removeObject(this);
-        }
-    }
-    
+
     public void act() 
     {
         super.act();
         
         shift();
-        
-        remove();
+        end();
     }    
+    
+    public void end()
+    {
+/*        Actor e = getOneIntersectingObject(lzr.class);  
+        
+        if(e != null)
+        {
+            getWorld().removeObject(e);
+            getWorld().removeObject(this);
+        }
+        else*/ if(dist <= 0 || this.isAtEdge())
+        { 
+            getWorld().removeObject(this);
+        }
+    }
     
 }

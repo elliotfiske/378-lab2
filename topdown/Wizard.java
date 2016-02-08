@@ -80,9 +80,9 @@ public class Wizard extends Actor
         if(mouse != null) {
             //ray trace
             int x = (int)(180*Math.atan2(mouse.getY()-getY(),mouse.getX()-getX())/Math.PI);
-            
+
             //based on left mouse click && turns off auto shooting
-            if(mouse.getButton() == 1 && Greenfoot.mouseClicked(null)) {        
+            if(mouse.getButton() == 1 && Greenfoot.mouseClicked(null)) {  
                 getWorld().addObject(new Projectile(x), getX(), getY());
             }
         }

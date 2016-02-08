@@ -47,7 +47,6 @@ public class Projectile extends Actor
             ((MyWorld) getWorld()).boss.hitCounter++;
             if (((MyWorld) getWorld()).boss.hitCounter > 100) {
                 getWorld().removeObject(((MyWorld) getWorld()).boss);
-                ((MyWorld) getWorld()).addObject(new Death(), 100, 100);
             }
         }
         else if(dist <= 0 || this.isAtEdge())

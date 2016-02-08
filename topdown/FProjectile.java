@@ -41,16 +41,23 @@ public class FProjectile extends Actor
         
         if(e != null)
         {
-            getWorld().removeObject(e);
-            getWorld().removeObject(this);
+            //getWorld().removeObject(e);
+            //getWorld().removeObject(this);
         }
-        else if (wizard != null) {
-            
-            getWorld().removeObject(this);
+        if (wizard != null) {
+            ((MyWorld) getWorld()).wizard.hitCounter++;
+            if (((MyWorld) getWorld()).wizard.hitCounter > 60) {
+                int wizPosX = ((MyWorld) getWorld()).wizard.getX();
+                int wizPosY = ((MyWorld) getWorld()).wizard.getY();
+                getWorld().removeObject((((MyWorld) getWorld()).wizard));
+                getWorld().addObject(new Bam(), wizPosX, wizPosY);
+            }
+            //getWorld().removeObject(this);
         }
         else if(this.isAtEdge())
         { 
             getWorld().removeObject(this);
+            //haha
         }
     }
     

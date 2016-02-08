@@ -1,56 +1,69 @@
 #Greenfoot properties
-<<<<<<< HEAD
-#Wed Feb 03 14:56:10 PST 2016
-=======
-#Wed Feb 03 14:38:18 PST 2016
->>>>>>> origin/master
+#Sun Feb 07 20:18:39 PST 2016
 readme.name=@README
 target2.name=MyWorld
-<<<<<<<=Updated upstream
+simulation.speed=49
+<<<<<<<=HEAD
 dependency1.from=MyWorld
 target2.showInterface=false
+dependency3.from=Wizard
+target3.y=70
+target3.x=70
 target1.type=ClassTarget
 class.MyWorld.superclass=greenfoot.World
 class.Projectile.superclass=greenfoot.Actor
+target3.type=ClassTarget
 target2.y=10
-package.numTargets=2
+package.numTargets=3
 target2.x=180
+dependency3.to=Projectile
 target1.height=50
 dependency2.type=UsesDependency
+dependency4.type=UsesDependency
 class.Wizard.superclass=greenfoot.Actor
-editor.swing.0.y=23
-editor.swing.0.x=0
+editor.swing.0.y=-8
+editor.swing.0.x=-8
 target1.y=10
 target2.height=50
 target1.x=90
 dependency1.to=Wizard
 class.Wizard.image=wizard.png
 editor.fx.0.height=700
->>>>>>>=Stashed changes
+target3.height=50
+>>>>>>>=origin/master
 target1.showInterface=false
+target3.typeParameters=
 target1.name=Wizard
-editor.swing.0.width=0
 editor.fx.0.width=700
+editor.swing.0.width=1382
 readme.y=10
 target2.typeParameters=
+target3.name=Projectile
 readme.x=10
+mainWindow.width=719
 target1.typeParameters=
-mainWindow.width=1280
 dependency2.from=Wizard
 target2.width=80
+mainWindow.height=644
+mainWindow.y=55
 target1.width=80
-mainWindow.y=23
-mainWindow.height=773
-mainWindow.x=0
+class.lzr.superclass=greenfoot.Actor
+mainWindow.x=509
+dependency4.from=Projectile
+target3.width=80
+class.lzr.image=Blue_laser.png
 editor.fx.0.y=0
+dependency4.to=Wizard
 editor.fx.0.x=0
 readme.width=47
 target2.type=ClassTarget
+target3.showInterface=false
 world.lastInstantiated=MyWorld
-editor.swing.0.height=773
+editor.swing.0.height=754
 dependency1.type=UsesDependency
 version=2.8.0
-package.numDependencies=2
+dependency3.type=UsesDependency
+package.numDependencies=4
 project.charset=UTF-8
 class.Projectile.image=fireball.png
 readme.height=58

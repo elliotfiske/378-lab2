@@ -14,6 +14,8 @@ public class Wizard extends Actor
     public static final int DIR_UP    = 2;
     public static final int DIR_LEFT  = 3;
     
+    public static final int DIR_IDLE = -1;
+    
     public int speed = 3;
     /* Directions:
      *     2
@@ -90,21 +92,43 @@ public class Wizard extends Actor
         if (!Greenfoot.isKeyDown("s")) {
             endDirection(DIR_DOWN);
         }
-        else if (!Greenfoot.isKeyDown("d")) {
+        
+        if (!Greenfoot.isKeyDown("d")) {
             endDirection(DIR_RIGHT);
         }
-        else if (!Greenfoot.isKeyDown("w")) {
+        
+        if (!Greenfoot.isKeyDown("w")) {
             endDirection(DIR_UP);
         }
-        else if (!Greenfoot.isKeyDown("a")) {
+        
+        if (!Greenfoot.isKeyDown("a")) {
             endDirection(DIR_LEFT);
         }
         
         // Get current direction
-        int dx = getHorizontalMovement();
-        int dy = getVerticalMovement();
+        float dx = getHorizontalMovement() * speed;
+        float dy = getVerticalMovement()   * speed;
         
-        setLocation(getX() + dx, getY() + dy);
+        calculateFacingDirection(dx, dy);
+        
+        setLocation(getX() + (int) dx, getY() + (int) dy);
+    }
+    
+    void calculateFacingDirection(float newDX, float newDY) {
+       if (Math.abs(newDX) <= 0.1f && Math.abs(newDY) <= 0.1f) {
+           // Idle
+           changeDirection(DIR_IDLE);
+           return;
+       }
+        
+       if (Math.abs(newDX) >= Math.abs(newDY)) {
+           // Moving horizontally
+           changeDirection(newDX > 0 ? DIR_RIGHT : DIR_LEFT);
+       }
+       else {
+           // Moving vertically
+           changeDirection(newDY > 0 ? DIR_DOWN : DIR_UP);
+       }
     }
     
     void endDirection(int dir) {
@@ -178,6 +202,11 @@ public class Wizard extends Actor
     private int prevY = 0;
     
     public void doAnimation() {
+        if (direction == DIR_IDLE) {
+            doIdleAnimation();
+            return;
+        }
+        
         int dx = getX() - prevX;
         int dy = getY() - prevY;
         
@@ -199,6 +228,10 @@ public class Wizard extends Actor
             
             setImage(wizardFrames.get(frame));
         }
+    }
+    
+    void doIdleAnimation() {
+        
     }
     
     public Wizard() {

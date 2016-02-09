@@ -16,6 +16,7 @@ public class MyWorld extends World
                                                     
     public static Wizard wizard;
     public static Boss boss;
+    public static Enemy blue;
     public int position = 0;
     public static int roomNum;
     /**
@@ -35,7 +36,9 @@ public class MyWorld extends World
             prepare();
         }
         boss = new Boss();
+        blue = new Enemy();
         addObject(boss, 400, 100);
+        addObject(blue, 400, 200);
         setBackground(rooms[roomNum]);
     }
     

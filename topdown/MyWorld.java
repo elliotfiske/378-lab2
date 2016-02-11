@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
+    GreenfootSound backgroundMusic = new GreenfootSound("Sleuth  Zweihänder.mp3");
     private static final double scrollSpeed = 3.5;
     private static final GreenfootImage[] rooms = { new GreenfootImage("yo.png"),
                                                     new GreenfootImage("yo2.png"),
@@ -30,6 +31,9 @@ public class MyWorld extends World
     public MyWorld(boolean change)
     {    
         super(500, 500, 1);
+        
+        backgroundMusic.setVolume(30);
+        backgroundMusic.playLoop();
         
         if (!change) {
             roomNum = 0;
